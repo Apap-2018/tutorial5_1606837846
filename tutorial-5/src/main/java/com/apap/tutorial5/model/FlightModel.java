@@ -2,19 +2,30 @@ package com.apap.tutorial5.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-/*
- * FlightModel
- */
+import com.apap.tutorial5.model.PilotModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "flight")
-public class FlightModel implements Serializable {
+public class FlightModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -39,8 +50,8 @@ public class FlightModel implements Serializable {
 	private Date time;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pilot_license_number", referencedColumnName = "license_number", nullable = false)
-	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	@JoinColumn(name = "pilot_licenseNumber", referencedColumnName = "license_number", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private PilotModel pilot;
 
@@ -92,4 +103,6 @@ public class FlightModel implements Serializable {
 		this.pilot = pilot;
 	}
 
+
+	
 }

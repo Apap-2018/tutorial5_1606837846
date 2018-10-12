@@ -1,16 +1,16 @@
 package com.apap.tutorial5.service;
 
-import com.apap.tutorial5.model.FlightModel;
-import com.apap.tutorial5.model.PilotModel;
-import com.apap.tutorial5.repository.FlightDb;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.apap.tutorial5.model.FlightModel;
+import com.apap.tutorial5.repository.FlightDb;
+import com.apap.tutorial5.service.FlightService;
+
 @Service
 @Transactional
-public class FlightServiceImpl implements FlightService {
+public class FlightServiceImpl implements FlightService{
 	@Autowired
 	private FlightDb flightDb;
 	
@@ -19,33 +19,28 @@ public class FlightServiceImpl implements FlightService {
 		flightDb.save(flight);
 	}
 	
-	@Override 
+/*	@Override
+	public void deleteFlight (String flightNumber) {
+		flightDb.delete(this.getFlightDetailByFlightNumber(flightNumber));
+	}*/
+	
+	@Override
 	public FlightModel getFlightDetailByFlightNumber(String flightNumber) {
 		return flightDb.findByFlightNumber(flightNumber);
 	}
-	
-	@Override 
-	public FlightModel getFlightDetailById(long id) {
-		return flightDb.findById(id);
-	}
-	
+
 	
 	@Override
-	public void deleteFlight(String flightNumber) {
-		flightDb.delete(this.getFlightDetailByFlightNumber(flightNumber));
+	public void deleteFlightById (long id) {
+		flightDb.deleteById(id);
 	}
-	
+		
 	@Override
-	public void deleteFlightById(long id) {
-		flightDb.delete(this.getFlightDetailById(id));
-	}
-	
-	@Override
-	public void updateFlight(String flightNumber, FlightModel newFlight) {
-		FlightModel flightLama = this.getFlightDetailByFlightNumber(flightNumber);
-		flightLama.setFlightNumber(newFlight.getFlightNumber());
-		flightLama.setOrigin(newFlight.getOrigin());
-		flightLama.setDestination(newFlight.getDestination());
-		flightLama.setTime(newFlight.getTime());
+	public void updateFlight (String flightNumber, FlightModel newFlight) {
+		FlightModel oldFlight = this.getFlightDetailByFlightNumber(flightNumber);
+		oldFlight.setFlightNumber(newFlight.getFlightNumber());
+		oldFlight.setOrigin(newFlight.getOrigin());
+		oldFlight.setDestination(newFlight.getDestination());
+		oldFlight.setTime(newFlight.getTime());
 	}
 }

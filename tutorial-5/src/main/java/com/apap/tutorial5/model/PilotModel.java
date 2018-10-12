@@ -1,4 +1,5 @@
 package com.apap.tutorial5.model;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,13 +15,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/*
- * PilotModel
- */
+import org.hibernate.annotations.Cascade;
+
+import com.apap.tutorial5.model.FlightModel;
 
 @Entity
 @Table(name = "pilot")
-public class PilotModel implements Serializable {
+public class PilotModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -31,7 +32,7 @@ public class PilotModel implements Serializable {
 	private String licenseNumber;
 	
 	@NotNull
-	@Size(max = 58)
+	@Size(max = 50)
 	@Column(name = "name", nullable = false)
 	private String name;
 	
@@ -40,6 +41,7 @@ public class PilotModel implements Serializable {
 	private int flyHour;
 	
 	@OneToMany(mappedBy = "pilot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+/*	Sebelumnya cascase.PERSIST dan gabisa remove*/
 	private List<FlightModel> pilotFlight;
 
 	public long getId() {
@@ -81,4 +83,9 @@ public class PilotModel implements Serializable {
 	public void setPilotFlight(List<FlightModel> pilotFlight) {
 		this.pilotFlight = pilotFlight;
 	}
+	
+	
+	
+	
+	
 }

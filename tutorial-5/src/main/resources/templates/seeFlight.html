@@ -8,13 +8,27 @@
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-	<nav th:replace="fragments/fragment :: navbar"></nav>
-	<h2>Hello!</h2>
+		
+		<div th:each= "pilot : ${pilotList}">
+			<div th:each= "flight : ${pilot.pilotFlight}">
+			
+				<h3 th:text="'Pilot Name : ' + ${pilot.name}"></h3>
+				
+				<h3 th:text="'Pilot licenseNumber : ' + ${pilot.licenseNumber}"></h3>
+			
+				<h3 th:text="'Flight Number : ' + ${flight.flightNumber}"></h3>
+				
+				<h3 th:text="'Origin : ' + ${flight.origin}"></h3>
+				
+				<h3 th:text="'Destination : ' + ${flight.destination}"></h3>
+				
+				<h3 th:text="'Time : ' + ${flight.time}"></h3>
+			</div>
+			<br>
 	
-	<h3>See Flight</h3>
-	<h3 th:text="'Flight number:' + ${flightNumber}"> Nomor penerbangan</h3>
-	<h3 th:text="'Nama pilot bertugas:' + ${pilot.name}"> Nama pilot</h3>
-	<h3 th:text="'License Number pilot bertugas:' + ${pilot.licenseNumber}">License number pilot</h3>
+	</div>
+	
+	
 
 </body>
 </html>

@@ -1,12 +1,16 @@
 package com.apap.tutorial5.service;
+
+import java.util.List;
+
 import com.apap.tutorial5.model.PilotModel;
-/*
- * PilotService
- */
+
 public interface PilotService {
 	PilotModel getPilotDetailByLicenseNumber(String licenseNumber);
-	void addPilot(PilotModel pilot);
-	void deletePilot(String licenseNumber);
 	void deletePilotById(long id);
+	List <PilotModel> getListPilot();
+	PilotModel getPilotDetailById(long id);
+	void addPilot(PilotModel pilot);
 	void updatePilot(String licenseNumber, PilotModel pilot);
+	
+	
 }
